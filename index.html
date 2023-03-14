@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+    <button id="Rock">Rock</button>
+    <button id="Paper">Paper</button>
+    <button id ="Scissors">Scissors</button>
+    </div>
+    <script>
+
+        let userScore=0;
+        let compScore=0;
+        let result='';
+
+        function playRound(playerSelection, computerSelection) {
+        if (playerSelection.toLowerCase()==="rock"){
+            if (computerSelection==="Rock"){
+                result="Tie! Rock versus Rock";}
+
+            else if (computerSelection==="Paper"){
+                result="You Lose! Paper beats Rock";
+                compScore++;}
+
+            else if (computerSelection==="Scissors"){
+                result="You Win! Rock beats Scissors";
+                userScore++;}
+        }
+        else if (playerSelection.toLowerCase()==="paper"){
+            if (computerSelection==="Rock"){
+                result="You Win! Paper beats Rock";
+                userScore++;}
+
+            else if (computerSelection==="Paper"){
+                result="Tie! Paper versus Paper";}
+
+            else if (computerSelection==="Scissors"){
+                result="You Lose! Scissors beats Paper";
+                compScore++;}
+        }
+        else if (playerSelection.toLowerCase()==="scissors"){
+            if (computerSelection==="Rock"){
+                result="You Lose! Rock beats Paper";
+                compScore++;}
+
+            else if (computerSelection==="Paper"){
+                result="You Win! Scissors beats Paper";
+                userScore++;}
+
+            else if (computerSelection==="Scissors"){
+                result="Tie! Scissors versus Scissors";}
+        }
+        }
+
+        function getComputerChoice(){
+            compArray=["Rock","Paper","Scissors"]
+            let randomChoice = Math.floor(Math.random()*compArray.length);
+            return compArray[randomChoice];}
+
+
+        const container = document.querySelector('#container');
+        const content = document.createElement('div');
+        content.setAttribute('style', 'white-space: pre;');
+        container.appendChild(content);
+        
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach((button) => {
+                button.addEventListener('click', () => {
+                const computerSelection = getComputerChoice();
+                playerSelection = button.id;
+                playRound(playerSelection, computerSelection);
+                content.textContent = `${result}\r\n You:${userScore} Com:${compScore}`;
+                if (userScore===5){
+                    alert('You win the game!');
+                    userScore=0;
+                    compScore=0; }
+
+                if (compScore===5){
+                    alert('You lose the game!');
+                    userScore=0;
+                    compScore=0;}
+            });
+        });
+         
+    </script>
+    
+</body>
+</html>
